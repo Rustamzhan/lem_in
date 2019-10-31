@@ -16,21 +16,26 @@ NAME_2 = push_swap
 
 SRC = ./checker_main.c
 
-SRCS_1 = ./validation.c\
-		./rooms.c\
-		./map.c\
-		./lem_in.c\
-		./leaks_destroyer.c
+SRCS_1 = ./srcs/other/validation.c\
+		./srcs/other/leaks_destroyer.c\
+		./srcs/prepare_data/rooms.c\
+		./srcs/prepare_data/map.c\
+		./srcs/prepare_data/links.c\
+		./srcs/tmp.c\
+		./srcs/lem_in.c
+			
 
 SRCS_2 = ./stack/check_condition.c ./stack/search_commands.c ./ft_push_swap.c
 
 OBJ = ./checker_main.o
 
-OBJ_1 =  ./validation.o\
-		./rooms.o\
-		./map.o\
-		./lem_in.o\
-		./leaks_destroyer.o
+OBJ_1 =  ./srcs/other/validation.o\
+		./srcs/other/leaks_destroyer.o\
+		./srcs/prepare_data/rooms.o\
+		./srcs/prepare_data/map.o\
+		./srcs/prepare_data/links.o\
+		./srcs/tmp.o\
+		./srcs/lem_in.o
 
 OBJ_2 = ./stack/check_condition.o ./stack/search_commands.o ./ft_push_swap.o
 
@@ -38,7 +43,7 @@ HDR = ./libft/includes/
 
 FLAG = -Wall -Wextra -Werror
 
-all: lib $(NAME_1) $(NAME_2)
+all: lib $(NAME_1)
 
 lib:
 	make -C libft
@@ -49,8 +54,8 @@ $(NAME_1): $(OBJ_1) ./libft/libft.a
 $(OBJ): %.o: %.c ./ft_swap_header.h
 	gcc $(FLAG) -c -I $(HDR) -I . $< -o $@
 
-$(OBJ_1): %.o: %.c ./lem_in.h
-	gcc -g $(FLAG) -c -I $(HDR) -I . $< -o $@
+$(OBJ_1): %.o: %.c ./srcs/lem_in.h
+	gcc -g $(FLAG) -c -I $(HDR) -I ./srcs $< -o $@
 
 $(NAME_2): $(OBJ_2) $(OBJ_1) ./libft/libft.a
 	gcc -o $(NAME_2) $(OBJ_1) $(OBJ_2) -L ./libft -lft

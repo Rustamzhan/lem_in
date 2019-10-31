@@ -18,7 +18,7 @@ static int			check_map(t_strings *map)
 
 	tmp = map;
 	if (map->str[0] == '-' || !ft_isnumber(map->str) || !ft_isint(map->str))
-		return (1);
+	 	return (1);
 	map = map->next;
 	while (map)
 	{
@@ -28,8 +28,6 @@ static int			check_map(t_strings *map)
 			continue ;
 		}
 		if (map->str[0] == ' ' || map->str[0] == '\t' || map->str[0] == 'L')
-			return (1);
-		if (!ft_strchr(map->str, ' ') && !ft_strchr(map->str, '-'))
 			return (1);
 		map = map->next;
 	}
@@ -46,7 +44,7 @@ static t_strings	*read_and_save_map(int fd)
 	int			check;
 
 	check = get_next_line(fd, &line);
-	if (!check || check == -1)
+	if (check < 1)
 		exit(1);
 	((input = (t_strings *)malloc(sizeof(t_strings)))) ? 0 : exit(2);
 	input->str = line;

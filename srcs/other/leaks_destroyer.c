@@ -35,7 +35,34 @@ void	ft_free_strings(t_strings *map)
 		tmp = map->next;
 		free(map->str);
 		free(map);
+		map = NULL;
 		map = tmp;
+	}
+}
+
+void	ft_free_links(t_links *link)
+{
+	t_links	*tmp;
+
+	while(link)
+	{
+		tmp = link->next;
+		free(link);
+		link = NULL;
+		link = tmp;
+	}
+}
+
+void	ft_free_queue(t_queue *queue)
+{
+	t_queue	*tmp;
+
+	while(queue)
+	{
+		tmp = queue->next;
+		free(queue);
+		queue = NULL;
+		queue = tmp;
 	}
 }
 
@@ -47,6 +74,7 @@ void	ft_free_lemin(t_lemin lemin)
 	{
 		tmp = lemin.rooms->next;
 		free(lemin.rooms->name);
+		ft_free_links(lemin.rooms->links);
 		free(lemin.rooms);
 		lemin.rooms = tmp;
 	}

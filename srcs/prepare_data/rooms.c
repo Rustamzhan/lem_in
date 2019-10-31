@@ -26,8 +26,12 @@ static int	check_room_and_save_name(char *str, t_rooms *current)
 		return (ft_free_attributes(attributes));
 	}
 	current->name = ft_strjoin("", attributes[0]);
+	current->visited = '0';
+	current->in_queue = '0';
 	current->next = NULL;
 	current->prev = NULL;
+	current->parent = NULL;
+	current->links = NULL;
 	ft_free_attributes(attributes);
 	return (0);
 }
@@ -42,10 +46,24 @@ static void	push_in_list(t_rooms **head, t_rooms *current)
 		return ;
 	}
 	tmp = *head;
-	while (tmp->next)
+	while (tmp->next && ft_strcmp(tmp->name, current->name))
 		tmp = tmp->next;
+	if (!ft_strcmp(tmp->name, current->name))
+	{
+		free(current->name);
+		free(current);
+		return ;
+	}
 	tmp->next = current;
 	current->prev = tmp;
+}
+
+static void	ft_free_and_exit(t_rooms *cur, t_lemin lemin, t_strings *map)
+{
+	free(cur);
+	ft_free_lemin(lemin);
+	ft_free_strings(map);
+	exit(1);
 }
 
 static void	check_and_add_one_room(t_lemin *lemin, char *str, t_strings *map,
@@ -60,12 +78,7 @@ static void	check_and_add_one_room(t_lemin *lemin, char *str, t_strings *map,
 		exit(2);
 	}
 	if (check_room_and_save_name(str, current))
-	{
-		free(current);
-		ft_free_lemin(*lemin);
-		ft_free_strings(map);
-		exit(1);
-	}
+		ft_free_and_exit(current, *lemin, map);
 	push_in_list(&(lemin->rooms), current);
 	if (mark == 1)
 		lemin->start = current;
