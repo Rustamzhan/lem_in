@@ -21,7 +21,8 @@ SRCS_1 = ./srcs/other/validation.c\
 		./srcs/prepare_data/rooms.c\
 		./srcs/prepare_data/map.c\
 		./srcs/prepare_data/links.c\
-		./srcs/tmp.c\
+		./srcs/solve_algo/bfs.c\
+		./srcs/solve_algo/delete_unused_links.c\
 		./srcs/lem_in.c
 			
 
@@ -34,7 +35,8 @@ OBJ_1 =  ./srcs/other/validation.o\
 		./srcs/prepare_data/rooms.o\
 		./srcs/prepare_data/map.o\
 		./srcs/prepare_data/links.o\
-		./srcs/tmp.o\
+		./srcs/solve_algo/bfs.o\
+		./srcs/solve_algo/delete_unused_links.o\
 		./srcs/lem_in.o
 
 OBJ_2 = ./stack/check_condition.o ./stack/search_commands.o ./ft_push_swap.o

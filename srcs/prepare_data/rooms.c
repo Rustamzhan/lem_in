@@ -26,8 +26,8 @@ static int	check_room_and_save_name(char *str, t_rooms *current)
 		return (ft_free_attributes(attributes));
 	}
 	current->name = ft_strjoin("", attributes[0]);
-	current->visited = '0';
 	current->in_queue = '0';
+	current->end = '0';
 	current->next = NULL;
 	current->prev = NULL;
 	current->parent = NULL;
@@ -93,6 +93,7 @@ t_lemin		create_and_check_rooms(t_strings *map)
 	int			marker;
 
 	lemin.rooms = NULL;
+	lemin.solve = NULL;
 	tmp = map;
 	while (map)
 	{

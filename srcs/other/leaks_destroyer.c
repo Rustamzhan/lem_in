@@ -44,7 +44,7 @@ void	ft_free_links(t_links *link)
 {
 	t_links	*tmp;
 
-	while(link)
+	while (link)
 	{
 		tmp = link->next;
 		free(link);
@@ -57,7 +57,7 @@ void	ft_free_queue(t_queue *queue)
 {
 	t_queue	*tmp;
 
-	while(queue)
+	while (queue)
 	{
 		tmp = queue->next;
 		free(queue);

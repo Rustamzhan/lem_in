@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	LEM_IN_H
+#ifndef LEM_IN_H
 # define LEM_IN_H
 
 # include "libft.h"
@@ -24,17 +24,15 @@ typedef struct			s_strings
 typedef struct			s_links
 {
 	struct s_rooms		*room;
-	char				mass;
+	char				cost;
 	struct s_links		*next;
 }						t_links;
 
 typedef struct			s_rooms
 {
 	char				*name;
-	int					in;
-	int					out;
+	char				end;
 	char				in_queue;
-	char				visited;
 	struct s_rooms		*parent;
 	struct s_links		*links;
 	struct s_rooms		*next;
@@ -47,6 +45,7 @@ typedef struct			s_lemin
 	struct s_rooms		*rooms;
 	struct s_rooms		*start;
 	struct s_rooms		*end;
+	struct s_solve		*solve;
 }						t_lemin;
 
 typedef struct			s_queue
@@ -54,6 +53,20 @@ typedef struct			s_queue
 	struct s_rooms		*room;
 	struct s_queue		*next;
 }						t_queue;
+
+typedef struct			s_solve
+{
+	int					steps;
+	struct s_ways		*ways;
+	struct s_solve		*next;
+}						t_solve;
+
+typedef struct			s_ways
+{
+	int					length;
+	struct s_rooms		*rooms;
+	struct s_ways		*next;
+}						t_ways;
 
 
 void					ft_free_strings(t_strings *map);
@@ -67,6 +80,8 @@ void					ft_free_queue(t_queue *queue);
 t_strings				*map_save_and_check(int fd);
 t_lemin					create_and_check_rooms(t_strings *map);
 t_lemin					add_links(t_strings *map, t_lemin lemin);
-t_lemin					clean_graph(t_lemin lemin);
+void					clean_graph(t_lemin *lemin, t_strings *map);
+void					ft_bfs(t_rooms *start, char marker);
+void					solve(t_lemin *lemin);
 
 #endif

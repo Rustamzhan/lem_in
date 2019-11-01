@@ -18,7 +18,7 @@ static int			check_map(t_strings *map)
 
 	tmp = map;
 	if (map->str[0] == '-' || !ft_isnumber(map->str) || !ft_isint(map->str))
-	 	return (1);
+		return (1);
 	map = map->next;
 	while (map)
 	{
@@ -27,7 +27,8 @@ static int			check_map(t_strings *map)
 			map = map->next;
 			continue ;
 		}
-		if (map->str[0] == ' ' || map->str[0] == '\t' || map->str[0] == 'L')
+		if (map->str[0] == '\0' || map->str[0] == ' ' || map->str[0] == '\t'
+			|| map->str[0] == 'L')
 			return (1);
 		map = map->next;
 	}

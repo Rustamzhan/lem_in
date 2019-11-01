@@ -26,7 +26,7 @@ static t_rooms	*find_room(t_rooms *rooms, char *name)
 	return (NULL);
 }
 
-static int	create_link_for_room(t_rooms *room, t_rooms *link)
+static int		create_link_for_room(t_rooms *room, t_rooms *link)
 {
 	t_links *new;
 	t_links	*tmp;
@@ -39,7 +39,7 @@ static int	create_link_for_room(t_rooms *room, t_rooms *link)
 	if (!(new = (t_links *)malloc(sizeof(t_links))))
 		return (0);
 	new->room = link;
-	new->mass = '1';
+	new->cost = '1';
 	new->next = NULL;
 	if (!room->links)
 		room->links = new;
@@ -48,7 +48,7 @@ static int	create_link_for_room(t_rooms *room, t_rooms *link)
 	return (1);
 }
 
-static int	create_links(t_rooms *first, t_rooms *second)
+static int		create_links(t_rooms *first, t_rooms *second)
 {
 	int	a;
 	int	b;
@@ -60,7 +60,7 @@ static int	create_links(t_rooms *first, t_rooms *second)
 	return (a & b);
 }
 
-static int	save_links(char *str, t_lemin *lemin)
+static int		save_links(char *str, t_lemin *lemin)
 {
 	char	**room_name;
 	t_rooms	*first;
@@ -80,10 +80,10 @@ static int	save_links(char *str, t_lemin *lemin)
 		return (0);
 	}
 	ft_free_attributes(room_name);
-	return (create_links(first, second));	
+	return (create_links(first, second));
 }
 
-t_lemin	add_links(t_strings *map, t_lemin lemin)
+t_lemin			add_links(t_strings *map, t_lemin lemin)
 {
 	t_strings	*tmp;
 

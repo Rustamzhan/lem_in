@@ -12,6 +12,21 @@
 
 #include "lem_in.h"
 
+static void	print_map(t_strings *map)
+{
+	t_strings	*tmp;
+
+	tmp = map;
+	while (tmp)
+	{
+		write(1, tmp->str, ft_strlen(tmp->str));
+		write(1, "\n", 1);
+		tmp = tmp->next;
+	}
+	write(1, "\n", 1);
+	ft_free_strings(map);
+}
+
 int	main(int ac, char **av)
 {
 	t_lemin		lemin;
@@ -32,14 +47,15 @@ int	main(int ac, char **av)
 	map = map_save_and_check(fd);
 	lemin = create_and_check_rooms(map);
 	lemin = add_links(map, lemin);
-	lemin = clean_graph(lemin);
+	clean_graph(&lemin, map);
+	print_map(map);
+//	solve(&lemin);
 	tmp = lemin.rooms;
 	while (tmp)
 	{
 		write(1, tmp->name, ft_strlen(tmp->name));
 		write(1, "\n", 1);
 		write(1, "________\n", 10);
-		//write(1, &tmp->visited, 1);
 		 link = tmp->links;
 		 while (link)
 		 {
@@ -52,7 +68,6 @@ int	main(int ac, char **av)
 		write(1, "\n", 1);
 		tmp = tmp->next;
 	}
-	ft_free_strings(map);
 	ft_free_lemin(lemin);
 	exit(0);
 }
