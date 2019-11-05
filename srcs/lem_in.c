@@ -31,8 +31,8 @@ int	main(int ac, char **av)
 {
 	t_lemin		lemin;
 	t_strings	*map;
-	t_rooms		*tmp;
-	t_links		*link;
+	t_ways		*tmp;
+	t_way		*link;
 	int	fd;
 
 	if (ac == 1)
@@ -49,22 +49,18 @@ int	main(int ac, char **av)
 	lemin = add_links(map, lemin);
 	clean_graph(&lemin, map);
 	print_map(map);
-//	solve(&lemin);
-	tmp = lemin.rooms;
+	ft_solve_lemin(&lemin);
+	tmp = lemin.solve->ways;
 	while (tmp)
 	{
-		write(1, tmp->name, ft_strlen(tmp->name));
-		write(1, "\n", 1);
-		write(1, "________\n", 10);
-		 link = tmp->links;
+		 link = tmp->way;
 		 while (link)
 		 {
 			write(1, link->room->name, ft_strlen(link->room->name));
 		 	write(1, "-", 1);
-			write(1, &link->room->in_queue, 1);
-			write(1, "\n", 1);
 		 	link = link->next;
 		 }
+		write(1, "\n", 1);
 		write(1, "\n", 1);
 		tmp = tmp->next;
 	}

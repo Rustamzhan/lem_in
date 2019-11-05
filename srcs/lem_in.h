@@ -57,16 +57,24 @@ typedef struct			s_queue
 typedef struct			s_solve
 {
 	int					steps;
+	int					num_ways;
+	int					*lengths;
 	struct s_ways		*ways;
-	struct s_solve		*next;
 }						t_solve;
 
 typedef struct			s_ways
 {
 	int					length;
-	struct s_rooms		*rooms;
+	struct s_way		*way;
 	struct s_ways		*next;
 }						t_ways;
+
+
+typedef struct			s_way
+{
+	struct s_rooms		*room;
+	struct s_way		*next;
+}						t_way;
 
 
 void					ft_free_strings(t_strings *map);
@@ -82,6 +90,9 @@ t_lemin					create_and_check_rooms(t_strings *map);
 t_lemin					add_links(t_strings *map, t_lemin lemin);
 void					clean_graph(t_lemin *lemin, t_strings *map);
 void					ft_bfs(t_rooms *start, char marker);
-void					solve(t_lemin *lemin);
+void					ft_solve_lemin(t_lemin *lemin);
+void					free_solve(t_ways *ways, int *arr);
+int						count_steps(int ants, t_ways **ways, int num_of_ways, int **arr);
+int						save_found_way(t_lemin *lemin, int step);
 
 #endif
