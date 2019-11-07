@@ -25,7 +25,7 @@ SRCS = ./ft_tolower.c ./ft_toupper.c ./ft_isprint.c ./ft_isascii.c \
 	   ./ft_putnbr.c ./ft_putchar_fd.c ./ft_putstr_fd.c ./ft_putendl_fd.c\
 	   ./ft_putnbr_fd.c ./ft_lstnew.c ./ft_lstdelone.c ./ft_lstdel.c\
 	   ./ft_lstadd.c ./ft_lstiter.c ./ft_lstmap.c ./ft_swap.c\
-	   ./ft_strsplit_spaces.c ./get_next_line.c
+	   ./ft_strsplit_spaces.c ./get_next_line.c ./ft_malloc.c
 
 OBJ =  ./ft_tolower.o ./ft_toupper.o ./ft_isprint.o ./ft_isascii.o \
 	   ./ft_isalnum.o ./ft_isdigit.o ./ft_isalpha.o ./ft_atoi.o ./ft_strcmp.o \
@@ -40,7 +40,7 @@ OBJ =  ./ft_tolower.o ./ft_toupper.o ./ft_isprint.o ./ft_isascii.o \
 	   ./ft_putnbr.o ./ft_putchar_fd.o ./ft_putstr_fd.o ./ft_putendl_fd.o\
 	   ./ft_putnbr_fd.o ./ft_lstnew.o ./ft_lstdelone.o ./ft_lstdel.o\
 	   ./ft_lstadd.o ./ft_lstiter.o ./ft_lstmap.o ./ft_swap.o\
-	   ./ft_strsplit_spaces.o ./get_next_line.o
+	   ./ft_strsplit_spaces.o ./get_next_line.o ./ft_malloc.o
 
 HDR = ./includes
 

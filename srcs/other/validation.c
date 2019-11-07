@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int			ft_isnumber(char *str)
+int	ft_isnumber(char *str)
 {
 	int	i;
 
@@ -21,16 +21,16 @@ int			ft_isnumber(char *str)
 		return (0);
 	while (str[i] != '\0')
 	{
-		if ((i > 0 && (str[i] == '-' || str[i] == '+')) ||
-			(!ft_isdigit(str[i]) && str[i] != '-' && str[i] != '+') ||
-			((str[i] == '-' || str[i] == '+') && !ft_isdigit(str[i + 1])))
+		if ((i > 0 && (str[i] == '-' || str[i] == '+'))
+			|| (!ft_isdigit(str[i]) && str[i] != '-' && str[i] != '+')
+			|| ((str[i] == '-' || str[i] == '+') && !ft_isdigit(str[i + 1])))
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int			ft_isint(char *str)
+int	ft_isint(char *str)
 {
 	int	len;
 	int	i;
@@ -44,15 +44,15 @@ int			ft_isint(char *str)
 	else if (((len == 11 && str[i] == '-') || (len == 10 && str[0] == '-'))
 			&& ft_strcmp("2147483648", &str[i + 1]) < 0)
 		return (0);
-	else if (len == 11 && str[i] == '+' && ft_strcmp("2147483647",
-			&str[i + 1]) < 0)
+	else if (len == 11 && str[i] == '+'
+			&& ft_strcmp("2147483647", &str[i + 1]) < 0)
 		return (0);
 	else if (len == 10 && ft_strcmp("2147483647", str) < 0)
 		return (0);
 	return (1);
 }
 
-int			count_start_end(t_strings *map)
+int	count_start_end(t_strings *map)
 {
 	int	i;
 	int	j;
@@ -61,21 +61,38 @@ int			count_start_end(t_strings *map)
 	i = 0;
 	while (map)
 	{
-		if (map->str[0] == '#' && map->str[1] == '#' &&
-			!ft_strcmp("##start", map->str))
+		if (map->str[0] == '#' && map->str[1] == '#'
+			&& !ft_strcmp("##start", map->str))
 		{
-			if (!ft_strchr(map->next->str, ' '))
+			if (!ft_strchr(map->next->str, ' ') || map->next->str[0] == '#')
 				return (0);
 			i++;
 		}
-		else if (map->str[0] == '#' && map->str[1] == '#' &&
-			!ft_strcmp("##end", map->str))
+		else if (map->str[0] == '#' && map->str[1] == '#'
+				&& !ft_strcmp("##end", map->str))
 		{
-			if (!ft_strchr(map->next->str, ' '))
+			if (!ft_strchr(map->next->str, ' ') || map->next->str[0] == '#')
 				return (0);
 			j++;
 		}
 		map = map->next;
 	}
 	return (i + j);
+}
+
+int	search_duplicates(t_rooms *cur, char **attr, t_rooms *head)
+{
+	t_rooms	*tmp;
+
+	cur->x = ft_atoi(attr[1]);
+	cur->y = ft_atoi(attr[2]);
+	tmp = head;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->name, attr[0]) || (tmp->x == cur->x
+			&& tmp->y == cur->y))
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
 }

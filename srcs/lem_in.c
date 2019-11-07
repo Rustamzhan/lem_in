@@ -27,43 +27,28 @@ static void	print_map(t_strings *map)
 	ft_free_strings(map);
 }
 
-int	main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_lemin		lemin;
 	t_strings	*map;
-	t_ways		*tmp;
-	t_way		*link;
-	int	fd;
+	int			fd;
 
-	if (ac == 1)
-		fd = 0;
-	else
-		fd = open(av[1], O_RDONLY);
-	if (fd < 0)
+	if (ac > 2)
 	{
-		write(2, "wrong input\n", 12);
+		write(1, "Usage: ./lem-in [data on stdin](< file_name)\n", 46);
 		return (1);
 	}
+	if (ac == 2)
+		fd = open(av[1], O_RDONLY);
+	else
+		fd = 0;
 	map = map_save_and_check(fd);
 	lemin = create_and_check_rooms(map);
 	lemin = add_links(map, lemin);
 	clean_graph(&lemin, map);
 	print_map(map);
 	ft_solve_lemin(&lemin);
-	tmp = lemin.solve->ways;
-	while (tmp)
-	{
-		 link = tmp->way;
-		 while (link)
-		 {
-			write(1, link->room->name, ft_strlen(link->room->name));
-		 	write(1, "-", 1);
-		 	link = link->next;
-		 }
-		write(1, "\n", 1);
-		write(1, "\n", 1);
-		tmp = tmp->next;
-	}
+	print_solve(lemin.solve, lemin.ants);
 	ft_free_lemin(lemin);
 	exit(0);
 }

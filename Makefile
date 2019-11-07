@@ -10,11 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME_1 = lem_in
+NAME_1 = lem-in
 
 SRCS_1 = ./srcs/other/validation.c\
 		./srcs/other/leaks_destroyer.c\
-		./srcs/other/leaks_destr.c\
+		./srcs/other/print.c\
 		./srcs/prepare_data/rooms.c\
 		./srcs/prepare_data/map.c\
 		./srcs/prepare_data/links.c\
@@ -27,7 +27,7 @@ SRCS_1 = ./srcs/other/validation.c\
 
 OBJ_1 =  ./srcs/other/validation.o\
 		./srcs/other/leaks_destroyer.o\
-		./srcs/other/leaks_destr.o\
+		./srcs/other/print.o\
 		./srcs/prepare_data/rooms.o\
 		./srcs/prepare_data/map.o\
 		./srcs/prepare_data/links.o\
@@ -51,7 +51,7 @@ $(NAME_1): $(OBJ_1) ./libft/libft.a
 	gcc -o $(NAME_1) $(OBJ_1) -L ./libft -lft
 
 $(OBJ_1): %.o: %.c ./srcs/lem_in.h
-	gcc -g $(FLAG) -c -I $(HDR) -I ./srcs $< -o $@
+	gcc $(FLAG) -c -I $(HDR) -I ./srcs $< -o $@
 
 clean:
 	make -C libft clean

@@ -53,23 +53,13 @@ void	ft_free_links(t_links *link)
 	}
 }
 
-void	ft_free_queue(t_queue *queue)
-{
-	t_queue	*tmp;
-
-	while (queue)
-	{
-		tmp = queue->next;
-		free(queue);
-		queue = NULL;
-		queue = tmp;
-	}
-}
-
 void	ft_free_lemin(t_lemin lemin)
 {
 	t_rooms	*tmp;
 
+	if (lemin.solve)
+		free_solve(lemin.solve->ways, lemin.solve->lengths);
+	free(lemin.solve);
 	while (lemin.rooms)
 	{
 		tmp = lemin.rooms->next;
@@ -77,5 +67,26 @@ void	ft_free_lemin(t_lemin lemin)
 		ft_free_links(lemin.rooms->links);
 		free(lemin.rooms);
 		lemin.rooms = tmp;
+	}
+}
+
+void	free_solve(t_ways *ways, int *arr)
+{
+	t_ways	*tmp;
+	t_way	*tmp2;
+
+	if (arr)
+		free(arr);
+	while (ways)
+	{
+		while (ways->way)
+		{
+			tmp2 = ways->way->next;
+			free(ways->way);
+			ways->way = tmp2;
+		}
+		tmp = ways->next;
+		free(ways);
+		ways = tmp;
 	}
 }

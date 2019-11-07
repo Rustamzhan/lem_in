@@ -12,20 +12,21 @@
 
 #include "lem_in.h"
 
-static int	check_room_and_save_name(char *str, t_rooms *current)
+static int	check_room_and_save_name(char *str, t_rooms *current, t_rooms *head)
 {
 	char	**attributes;
 
 	current->name = NULL;
 	attributes = ft_strsplit(str, ' ');
-	if (!attributes[1] || !attributes[2] || attributes[3] ||
-		!ft_isnumber(attributes[1]) || !ft_isint(attributes[1]) ||
-		!ft_isnumber(attributes[2]) || !ft_isint(attributes[2]))
+	if (!attributes[1] || !attributes[2] || attributes[3]
+		|| !ft_isnumber(attributes[1]) || !ft_isint(attributes[1])
+		|| !ft_isnumber(attributes[2]) || !ft_isint(attributes[2])
+		|| search_duplicates(current, attributes, head)
+		|| !(current->name = ft_strjoin("", attributes[0])))
 	{
 		write(2, "ERROR\n", 6);
 		return (ft_free_attributes(attributes));
 	}
-	current->name = ft_strjoin("", attributes[0]);
 	current->in_queue = '0';
 	current->end = '0';
 	current->next = NULL;
@@ -77,7 +78,7 @@ static void	check_and_add_one_room(t_lemin *lemin, char *str, t_strings *map,
 		ft_free_strings(map);
 		exit(2);
 	}
-	if (check_room_and_save_name(str, current))
+	if (check_room_and_save_name(str, current, lemin->rooms))
 		ft_free_and_exit(current, *lemin, map);
 	push_in_list(&(lemin->rooms), current);
 	if (mark == 1)
@@ -97,10 +98,10 @@ t_lemin		create_and_check_rooms(t_strings *map)
 	tmp = map;
 	while (map)
 	{
-		marker = (map->str[0] == '#' &&
-			!ft_strcmp(map->str, "##start")) ? 1 : 0;
-		marker = (map->str[0] == '#' &&
-			!ft_strcmp(map->str, "##end")) ? 2 : marker;
+		marker = (map->str[0] == '#'
+				&& !ft_strcmp(map->str, "##start")) ? 1 : 0;
+		marker = (map->str[0] == '#'
+				&& !ft_strcmp(map->str, "##end")) ? 2 : marker;
 		map = (marker) ? map->next : map;
 		if (map->str[0] != '#' && ft_strchr(map->str, ' '))
 			check_and_add_one_room(&lemin, map->str, tmp, marker);

@@ -46,15 +46,18 @@ static t_strings	*read_and_save_map(int fd)
 
 	check = get_next_line(fd, &line);
 	if (check < 1)
+	{
+		write(2, "ERROR\n", 6);
+		free(line);
 		exit(1);
-	((input = (t_strings *)malloc(sizeof(t_strings)))) ? 0 : exit(2);
+	}
+	input = (t_strings *)ft_malloc(sizeof(t_strings));
 	input->str = line;
 	input->next = NULL;
 	head = input;
 	while (get_next_line(fd, &line) == 1)
 	{
-		((input->next = (t_strings *)malloc(sizeof(t_strings)))) ? 0 :
-			exit(2);
+		input->next = (t_strings *)ft_malloc(sizeof(t_strings));
 		input = input->next;
 		input->str = line;
 		input->next = NULL;
@@ -71,7 +74,7 @@ t_strings			*map_save_and_check(int fd)
 	if (check_map(map))
 	{
 		ft_free_strings(map);
-		write(1, "ERROR\n", 6);
+		write(2, "ERROR\n", 6);
 		exit(1);
 	}
 	return (map);

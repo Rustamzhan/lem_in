@@ -14,8 +14,8 @@
 
 static	int	overload(long long nb, char c, char b, int n)
 {
-	if (ft_isdigit(b) || nb > 922337203685477580 ||
-			(nb == 922337203685477580 && (c - '0') > 7))
+	if (ft_isdigit(b) || nb > 922337203685477580
+		|| (nb == 922337203685477580 && (c - '0') > 7))
 		return ((n == 1) ? 0 : -1);
 	nb = nb * 10 + (c - '0');
 	return ((n == 1) ? -nb : nb);
@@ -30,8 +30,8 @@ int			ft_atoi(const char *str)
 	i = 0;
 	nb = 0;
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' || str[i] == '\n'
-			|| str[i] == '\r' || str[i] == '\f' || (str[i] == '+' &&
-				str[i + 1] >= '0' && str[i + 1] <= '9'))
+			|| str[i] == '\r' || str[i] == '\f' || (str[i] == '+'
+			&& str[i + 1] >= '0' && str[i + 1] <= '9'))
 		i++;
 	n = ((str[i] == '-') ? 1 : 0);
 	i += ((str[i] == '+' || str[i] == '-') ? 1 : 0);

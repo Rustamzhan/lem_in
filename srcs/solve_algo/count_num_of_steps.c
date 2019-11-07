@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-static void	sort_array(t_ways **arr, int num)
+static void		sort_array(t_ways **arr, int num)
 {
 	int		i;
 	int		j;
@@ -40,8 +40,7 @@ static t_ways	*sort_ways(t_ways *ways, int num)
 	t_ways	**arr;
 	int		i;
 
-	if (!(arr = (t_ways **)malloc(sizeof(t_ways*) * num)))
-		exit(2);
+	arr = (t_ways **)ft_malloc(sizeof(t_ways*) * num);
 	i = 0;
 	while (i < num)
 	{
@@ -59,10 +58,10 @@ static t_ways	*sort_ways(t_ways *ways, int num)
 	arr[i]->next = NULL;
 	ways = arr[0];
 	free(arr);
-	return(ways);
+	return (ways);
 }
 
-static int	*create_lengths(t_ways *ways, int num)
+static int		*create_lengths(t_ways *ways, int num)
 {
 	t_ways	*tmp;
 	t_ways	*cur;
@@ -70,8 +69,7 @@ static int	*create_lengths(t_ways *ways, int num)
 	int		i;
 	int		summ;
 
-	if (!(lengths = (int *)malloc(sizeof(int) * num)))
-		exit(2);
+	lengths = (int *)ft_malloc(sizeof(int) * num);
 	i = 0;
 	lengths[0] = 0;
 	cur = ways->next;
@@ -90,7 +88,8 @@ static int	*create_lengths(t_ways *ways, int num)
 	return (lengths);
 }
 
-int	count_steps(int ants, t_ways **ways, int num_of_ways, int **arr)
+int				count_steps(int ants, t_ways **ways, int num_of_ways,
+							int **arr)
 {
 	int	i;
 	int	steps;

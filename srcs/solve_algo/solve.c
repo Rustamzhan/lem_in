@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-static void		close_ways(t_lemin *lemin)
+static void	close_ways(t_lemin *lemin)
 {
 	t_links *tmp;
 	t_rooms	*room;
@@ -24,51 +24,62 @@ static void		close_ways(t_lemin *lemin)
 		while (tmp->room != room)
 			tmp = tmp->next;
 		tmp->cost = '0';
+		tmp = room->links;
+		while (tmp)
+		{
+			if (tmp->cost != '0')
+				tmp->cost = '2';
+			tmp = tmp->next;
+		}
 		room = room->parent;
 	}
 }
 
-static void	change_markers(char *cost1, char *cost2, int *changed)
-{
-	*cost1 = '1';
-	*cost2 = '1';
-	*changed = 1;
-}
-
-static int	open_closed_links(t_rooms *room)
+static void	open_closed_links(t_rooms *room, t_rooms *start)
 {
 	t_links	*tmp;
 	t_links	*tmp2;
-	int		changed;
 
-	changed = 0;
-	while (room)
+	while (room != start)
 	{
 		tmp = room->links;
 		while (tmp)
 		{
-			if (tmp->cost == '0')
+			if (tmp->cost == '0' && tmp->room->end != '1')
 			{
 				tmp2 = tmp->room->links;
 				while (tmp2->room != room)
 					tmp2 = tmp2->next;
 				if (tmp2->cost == '0')
-					change_markers(&tmp->cost, &tmp2->cost, &changed);
+				{
+					tmp->cost = '1';
+					tmp2->cost = '1';
+				}
 			}
 			tmp = tmp->next;
 		}
-		room = room->next;
+		room = room->parent;
 	}
-	return (changed);
 }
 
-void	ft_solve_lemin(t_lemin *lemin)
+static void	clean_parents(t_rooms *room)
+{
+	t_rooms	*tmp;
+
+	tmp = room;
+	while (tmp)
+	{
+		tmp->parent = NULL;
+		tmp = tmp->next;
+	}
+}
+
+void		ft_solve_lemin(t_lemin *lemin)
 {
 	int		cur_step;
 	char	marker;
 
-	if (!(lemin->solve = (t_solve *)malloc(sizeof(t_solve))))
-		exit(2);
+	lemin->solve = (t_solve *)ft_malloc(sizeof(t_solve));
 	lemin->solve->steps = 2147483647;
 	lemin->solve->ways = NULL;
 	lemin->solve->lengths = NULL;
@@ -78,12 +89,13 @@ void	ft_solve_lemin(t_lemin *lemin)
 	{
 		cur_step++;
 		marker = (lemin->start->in_queue == '0') ? '1' : '0';
+		clean_parents(lemin->rooms);
 		ft_bfs(lemin->start, marker);
 		if (lemin->end->in_queue != marker)
 			break ;
 		close_ways(lemin);
-		open_closed_links(lemin->rooms);
+		open_closed_links(lemin->end, lemin->start);
 		if (!save_found_way(lemin, cur_step))
-			break;
+			break ;
 	}
 }

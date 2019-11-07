@@ -16,17 +16,20 @@ static t_way	*save_elem_of_way(t_rooms *cur)
 {
 	t_way	*new;
 
-	if (!(new = (t_way *)malloc(sizeof(t_way))))
-				exit(2);
+	new = (t_way *)ft_malloc(sizeof(t_way));
 	new->room = cur;
+	new->ant = 0;
 	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }
 
-static t_rooms	*find_next_room(t_rooms *room)
+static t_rooms	*find_next_room(t_rooms *room, t_rooms *end)
 {
 	t_links	*tmp;
 
+	if (room == end)
+		return (NULL);
 	tmp = room->links;
 	while (tmp->cost != '0')
 		tmp = tmp->next;
@@ -38,12 +41,10 @@ static t_ways	*create_new_way(t_rooms *current, t_rooms *end)
 	t_ways	*ways;
 	t_way	*cur;
 
-	if (!(ways = (t_ways *)malloc(sizeof(t_ways))))
-		exit(2);
-	ways->next = NULL;
+	ways = (t_ways *)ft_malloc(sizeof(t_ways));
 	ways->way = NULL;
 	ways->length = 1;
-	while (current != end)
+	while (current)
 	{
 		if (!ways->way)
 		{
@@ -53,12 +54,12 @@ static t_ways	*create_new_way(t_rooms *current, t_rooms *end)
 		else
 		{
 			cur->next = save_elem_of_way(current);
+			cur->next->prev = cur;
 			cur = cur->next;
 		}
 		ways->length++;
-		current = find_next_room(current);
+		current = find_next_room(current, end);
 	}
-	cur->next = save_elem_of_way(current);
 	return (ways);
 }
 
@@ -84,13 +85,14 @@ static t_ways	*save_new_ways(t_rooms *start, t_rooms *end)
 				cur->next = create_new_way(tmp->room, end);
 				cur = cur->next;
 			}
+			cur->next = NULL;
 		}
 		tmp = tmp->next;
 	}
 	return (head);
 }
 
-int	save_found_way(t_lemin *lemin, int step)
+int				save_found_way(t_lemin *lemin, int step)
 {
 	t_ways	*tmp;
 	int		steps_num;

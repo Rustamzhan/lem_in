@@ -12,16 +12,15 @@
 
 #include "lem_in.h"
 
-static void		add_in_queue(t_queue **queue, t_rooms *room)
+static void		add_in_queue(t_way **queue, t_rooms *room)
 {
-	t_queue	*tmp;
-	t_queue *new;
+	t_way	*tmp;
+	t_way	*new;
 
 	tmp = *queue;
 	while (tmp && tmp->next)
 		tmp = tmp->next;
-	if (!(new = (t_queue *)malloc(sizeof(t_queue))))
-		exit(2);
+	new = (t_way *)ft_malloc(sizeof(t_way));
 	new->room = room;
 	new->next = NULL;
 	if (!tmp)
@@ -30,9 +29,9 @@ static void		add_in_queue(t_queue **queue, t_rooms *room)
 		tmp->next = new;
 }
 
-static t_rooms	*take_from_queue(t_queue **queue)
+static t_rooms	*take_from_queue(t_way **queue)
 {
-	t_queue	*tmp;
+	t_way	*tmp;
 	t_rooms	*cur;
 
 	tmp = *queue;
@@ -46,7 +45,7 @@ static t_rooms	*take_from_queue(t_queue **queue)
 void			ft_bfs(t_rooms *start, char marker)
 {
 	t_rooms	*cur_room;
-	t_queue	*queue;
+	t_way	*queue;
 	t_links	*tmp;
 
 	queue = NULL;
@@ -58,7 +57,7 @@ void			ft_bfs(t_rooms *start, char marker)
 		tmp = (cur_room->end == '1') ? NULL : cur_room->links;
 		while (tmp)
 		{
-			if (tmp->room->in_queue == marker || tmp->cost == '0')
+			if (tmp->room->in_queue == marker || tmp->cost != '1')
 			{
 				tmp = tmp->next;
 				continue ;
