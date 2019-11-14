@@ -29,6 +29,7 @@ static int	check_room_and_save_name(char *str, t_rooms *current, t_rooms *head)
 	}
 	current->in_queue = '0';
 	current->end = '0';
+	current->used = '0';
 	current->next = NULL;
 	current->prev = NULL;
 	current->parent = NULL;

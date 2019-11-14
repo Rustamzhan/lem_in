@@ -51,7 +51,7 @@ $(NAME_1): $(OBJ_1) ./libft/libft.a
 	gcc -o $(NAME_1) $(OBJ_1) -L ./libft -lft
 
 $(OBJ_1): %.o: %.c ./srcs/lem_in.h
-	gcc $(FLAG) -c -I $(HDR) -I ./srcs $< -o $@
+	gcc -g $(FLAG) -c -I $(HDR) -I ./srcs $< -o $@
 
 clean:
 	make -C libft clean

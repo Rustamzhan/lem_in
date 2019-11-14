@@ -12,21 +12,6 @@
 
 #include "lem_in.h"
 
-static void	print_map(t_strings *map)
-{
-	t_strings	*tmp;
-
-	tmp = map;
-	while (tmp)
-	{
-		write(1, tmp->str, ft_strlen(tmp->str));
-		write(1, "\n", 1);
-		tmp = tmp->next;
-	}
-	write(1, "\n", 1);
-	ft_free_strings(map);
-}
-
 int			main(int ac, char **av)
 {
 	t_lemin		lemin;
@@ -35,7 +20,7 @@ int			main(int ac, char **av)
 
 	if (ac > 2)
 	{
-		write(1, "Usage: ./lem-in [data on stdin](< file_name)\n", 46);
+		write(2, "Usage: ./lem-in [data on stdin](< file_name)\n", 46);
 		return (1);
 	}
 	if (ac == 2)

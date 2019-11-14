@@ -29,6 +29,8 @@ typedef struct			s_rooms
 	char				*name;
 	char				end;
 	char				in_queue;
+	char				used;
+	char				from;
 	int					x;
 	int					y;
 	struct s_rooms		*parent;
@@ -48,7 +50,7 @@ typedef struct			s_solve
 typedef struct			s_links
 {
 	struct s_rooms		*room;
-	char				cost;
+	char				direction;
 	struct s_links		*next;
 }						t_links;
 
@@ -84,10 +86,11 @@ int						search_duplicates(t_rooms *cur, char **attr,
 int						count_steps(int ants, t_ways **ways, int num_of_ways,
 									int **arr);
 void					ft_free_strings(t_strings *map);
+void					print_map(t_strings *map);
 void					print_solve(t_solve *solve, int ants_all);
 void					ft_free_lemin(t_lemin lemin);
 void					clean_graph(t_lemin *lemin, t_strings *map);
-void					ft_bfs(t_rooms *start, char marker);
+void					ft_bfs(t_rooms *start);
 void					ft_solve_lemin(t_lemin *lemin);
 void					free_solve(t_ways *ways, int *arr);
 t_lemin					create_and_check_rooms(t_strings *map);

@@ -18,6 +18,7 @@ static t_way	*save_elem_of_way(t_rooms *cur)
 
 	new = (t_way *)ft_malloc(sizeof(t_way));
 	new->room = cur;
+	new->room->used = '1';
 	new->ant = 0;
 	new->next = NULL;
 	new->prev = NULL;
@@ -31,7 +32,7 @@ static t_rooms	*find_next_room(t_rooms *room, t_rooms *end)
 	if (room == end)
 		return (NULL);
 	tmp = room->links;
-	while (tmp->cost != '0')
+	while (tmp->direction != '0')
 		tmp = tmp->next;
 	return (tmp->room);
 }
@@ -73,7 +74,7 @@ static t_ways	*save_new_ways(t_rooms *start, t_rooms *end)
 	head = NULL;
 	while (tmp)
 	{
-		if (tmp->cost == '0')
+		if (tmp->direction == '0')
 		{
 			if (head == NULL)
 			{

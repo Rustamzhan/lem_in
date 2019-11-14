@@ -105,3 +105,18 @@ void		print_solve(t_solve *solve, int ants_all)
 		write(1, "\n", 1);
 	}
 }
+
+void		print_map(t_strings *map)
+{
+	t_strings	*tmp;
+
+	tmp = map;
+	while (tmp)
+	{
+		write(1, tmp->str, ft_strlen(tmp->str));
+		write(1, "\n", 1);
+		tmp = tmp->next;
+	}
+	write(1, "\n", 1);
+	ft_free_strings(map);
+}

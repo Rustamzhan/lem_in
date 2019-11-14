@@ -39,7 +39,7 @@ static int		create_link_for_room(t_rooms *room, t_rooms *link)
 	if (!(new = (t_links *)malloc(sizeof(t_links))))
 		return (0);
 	new->room = link;
-	new->cost = '1';
+	new->direction = '1';
 	new->next = NULL;
 	if (!room->links)
 		room->links = new;

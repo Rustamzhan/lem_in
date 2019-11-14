@@ -18,7 +18,7 @@ void	*ft_malloc(size_t size)
 
 	if (!(res = malloc(size)))
 	{
-		write(2, "Check memory\n", 14);
+		write(1, "Check memory\n", 14);
 		exit(2);
 	}
 	return (res);

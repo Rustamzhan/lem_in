@@ -28,7 +28,7 @@ static void	delete_link(t_rooms *start, t_links **tmp, t_links *prev)
 	}
 }
 
-static void	delete_unused_links_from_start(t_rooms *start)
+static void	delete_unused_links(t_rooms *start)
 {
 	t_links	*tmp;
 	t_links	*prev;
@@ -47,10 +47,20 @@ static void	delete_unused_links_from_start(t_rooms *start)
 	}
 }
 
+static void	clean_queue_marks(t_rooms *room)
+{
+	while (room)
+	{
+		room->in_queue = '0';
+		room = room->next;
+	}
+}
+
 void		clean_graph(t_lemin *lemin, t_strings *map)
 {
 	lemin->start->end = '1';
-	ft_bfs(lemin->end, '1');
+	lemin->end->in_queue = '1';
+	ft_bfs(lemin->end);
 	if (lemin->start->in_queue == '0')
 	{
 		ft_free_lemin(*lemin);
@@ -59,5 +69,13 @@ void		clean_graph(t_lemin *lemin, t_strings *map)
 		exit(1);
 	}
 	lemin->start->end = '0';
-	delete_unused_links_from_start(lemin->start);
+	lemin->end->in_queue = '0';
+	delete_unused_links(lemin->start);
+	lemin->end->end = '1';
+	lemin->start->in_queue = '1';
+	clean_queue_marks(lemin->rooms);
+	ft_bfs(lemin->start);
+	delete_unused_links(lemin->end);
+	lemin->end->end = '0';
+	lemin->start->in_queue = '0';
 }

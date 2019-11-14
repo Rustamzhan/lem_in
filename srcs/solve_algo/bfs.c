@@ -42,7 +42,7 @@ static t_rooms	*take_from_queue(t_way **queue)
 	return (cur);
 }
 
-void			ft_bfs(t_rooms *start, char marker)
+void			ft_bfs(t_rooms *start)
 {
 	t_rooms	*cur_room;
 	t_way	*queue;
@@ -50,21 +50,21 @@ void			ft_bfs(t_rooms *start, char marker)
 
 	queue = NULL;
 	add_in_queue(&queue, start);
-	start->in_queue = marker;
 	while (queue)
 	{
 		cur_room = take_from_queue(&queue);
-		tmp = (cur_room->end == '1') ? NULL : cur_room->links;
+		tmp = (cur_room->end != '1') ? cur_room->links : NULL;
 		while (tmp)
 		{
-			if (tmp->room->in_queue == marker || tmp->cost != '1')
+			if (!(tmp->room->in_queue == '1' || tmp->direction == '0'
+				|| (cur_room->used == '1' && cur_room->from == '0'
+				&& tmp->direction != '2')))
 			{
-				tmp = tmp->next;
-				continue ;
+				add_in_queue(&queue, tmp->room);
+				tmp->room->in_queue = '1';
+				tmp->room->from = (tmp->direction == '2') ? '1' : '0';
+				tmp->room->parent = cur_room;
 			}
-			add_in_queue(&queue, tmp->room);
-			tmp->room->in_queue = marker;
-			tmp->room->parent = cur_room;
 			tmp = tmp->next;
 		}
 	}

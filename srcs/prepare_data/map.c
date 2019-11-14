@@ -48,7 +48,6 @@ static t_strings	*read_and_save_map(int fd)
 	if (check < 1)
 	{
 		write(2, "ERROR\n", 6);
-		free(line);
 		exit(1);
 	}
 	input = (t_strings *)ft_malloc(sizeof(t_strings));

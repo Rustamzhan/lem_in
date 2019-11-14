@@ -12,43 +12,63 @@
 
 #include "lem_in.h"
 
-static void		sort_array(t_ways **arr, int num)
+static void		delete_min_from_ways(t_ways **ways, t_ways *min)
 {
-	int		i;
-	int		j;
+	t_ways	*prev;
 	t_ways	*tmp;
 
-	i = 0;
-	while (i < num)
+	if (!*ways)
+		return ;
+	if (*ways == min)
 	{
-		j = i;
-		while (++j < num)
-		{
-			if (arr[j]->length < arr[i]->length)
-			{
-				tmp = arr[i];
-				arr[i] = arr[j];
-				arr[j] = tmp;
-			}
-		}
-		i++;
+		*ways = (*ways)->next;
+		return ;
 	}
+	prev = *ways;
+	tmp = (*ways)->next;
+	while (tmp)
+	{
+		if (tmp == min)
+		{
+			prev->next = tmp->next;
+			return ;
+		}
+		prev = tmp;
+		tmp = tmp->next;
+	}
+}
+
+static t_ways	*find_min(t_ways *arr)
+{
+	t_ways	*min;
+	t_ways	*tmp;
+
+	min = arr;
+	tmp = (arr) ? arr->next : NULL;
+	while (tmp)
+	{
+		if (tmp->length < min->length)
+			min = tmp;
+		tmp = tmp->next;
+	}
+	return (min);
 }
 
 static t_ways	*sort_ways(t_ways *ways, int num)
 {
 	t_ways	**arr;
+	t_ways	*min;
 	int		i;
 
 	arr = (t_ways **)ft_malloc(sizeof(t_ways*) * num);
 	i = 0;
 	while (i < num)
 	{
-		arr[i] = ways;
+		min = find_min(ways);
+		delete_min_from_ways(&ways, min);
+		arr[i] = min;
 		i++;
-		ways = ways->next;
 	}
-	sort_array(arr, num);
 	i = 0;
 	while (i < num - 1)
 	{
@@ -94,6 +114,8 @@ int				count_steps(int ants, t_ways **ways, int num_of_ways,
 	int	i;
 	int	steps;
 
+	if (!ways)
+		return (0);
 	*ways = sort_ways(*ways, num_of_ways);
 	*arr = create_lengths(*ways, num_of_ways);
 	steps = 0;
