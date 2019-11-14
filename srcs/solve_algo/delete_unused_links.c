@@ -69,13 +69,11 @@ void		clean_graph(t_lemin *lemin, t_strings *map)
 		exit(1);
 	}
 	lemin->start->end = '0';
-	lemin->end->in_queue = '0';
 	delete_unused_links(lemin->start);
+	clean_queue_marks(lemin->rooms);
 	lemin->end->end = '1';
 	lemin->start->in_queue = '1';
-	clean_queue_marks(lemin->rooms);
 	ft_bfs(lemin->start);
 	delete_unused_links(lemin->end);
 	lemin->end->end = '0';
-	lemin->start->in_queue = '0';
 }
