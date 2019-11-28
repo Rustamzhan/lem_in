@@ -47,7 +47,7 @@ static t_strings	*read_and_save_map(int fd)
 	check = get_next_line(fd, &line);
 	if (check < 1)
 	{
-		write(2, "ERROR\n", 6);
+		write(2, "ERROR. Wrong file_name or input data.\n", 39);
 		exit(1);
 	}
 	input = (t_strings *)ft_malloc(sizeof(t_strings));
@@ -73,7 +73,7 @@ t_strings			*map_save_and_check(int fd)
 	if (check_map(map))
 	{
 		ft_free_strings(map);
-		write(2, "ERROR\n", 6);
+		write(2, "ERROR. Invalid map format.\n", 28);
 		exit(1);
 	}
 	return (map);

@@ -65,7 +65,7 @@ void		clean_graph(t_lemin *lemin, t_strings *map)
 	{
 		ft_free_lemin(*lemin);
 		ft_free_strings(map);
-		write(2, "ERROR\n", 6);
+		write(2, "ERROR. Start and end are not connected.\n", 41);
 		exit(1);
 	}
 	lemin->start->end = '0';

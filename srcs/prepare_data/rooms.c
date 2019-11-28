@@ -24,7 +24,7 @@ static int	check_room_and_save_name(char *str, t_rooms *current, t_rooms *head)
 		|| search_duplicates(current, attributes, head)
 		|| !(current->name = ft_strjoin("", attributes[0])))
 	{
-		write(2, "ERROR\n", 6);
+		write(2, "ERROR. Invalid room in map.\n", 29);
 		return (ft_free_attributes(attributes));
 	}
 	current->in_queue = '0';
@@ -73,12 +73,7 @@ static void	check_and_add_one_room(t_lemin *lemin, char *str, t_strings *map,
 {
 	t_rooms	*current;
 
-	if (!(current = (t_rooms *)malloc(sizeof(t_rooms))))
-	{
-		ft_free_lemin(*lemin);
-		ft_free_strings(map);
-		exit(2);
-	}
+	current = (t_rooms *)ft_malloc(sizeof(t_rooms));
 	if (check_room_and_save_name(str, current, lemin->rooms))
 		ft_free_and_exit(current, *lemin, map);
 	push_in_list(&(lemin->rooms), current);

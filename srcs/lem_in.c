@@ -20,7 +20,7 @@ int			main(int ac, char **av)
 
 	if (ac > 2)
 	{
-		write(2, "Usage: ./lem-in [data on stdin](< file_name)\n", 46);
+		write(2, "Usage: ./lem-in [data on stdin | file_name]\n", 45);
 		return (1);
 	}
 	if (ac == 2)

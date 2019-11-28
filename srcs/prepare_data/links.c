@@ -36,8 +36,7 @@ static int		create_link_for_room(t_rooms *room, t_rooms *link)
 		tmp = tmp->next;
 	if (tmp && tmp->room == link)
 		return (1);
-	if (!(new = (t_links *)malloc(sizeof(t_links))))
-		return (0);
+	new = (t_links *)ft_malloc(sizeof(t_links));
 	new->room = link;
 	new->direction = '1';
 	new->next = NULL;
@@ -103,7 +102,7 @@ t_lemin			add_links(t_strings *map, t_lemin lemin)
 		{
 			ft_free_lemin(lemin);
 			ft_free_strings(tmp);
-			write(2, "ERROR\n", 6);
+			write(2, "ERROR. Check links.\n", 21);
 			exit(1);
 		}
 		map = map->next;
