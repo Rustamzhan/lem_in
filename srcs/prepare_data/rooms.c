@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rooms.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astanton <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:39:01 by astanton          #+#    #+#             */
-/*   Updated: 2019/10/25 13:39:03 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/23 09:53:31 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_room_and_save_name(char *str, t_rooms *current, t_rooms *head)
 		|| search_duplicates(current, attributes, head)
 		|| !(current->name = ft_strjoin("", attributes[0])))
 	{
-		write(2, "ERROR. Invalid room in map.\n", 29);
+		write(2, "ERROR. Invalid room in map.\n", 28);
 		return (ft_free_attributes(attributes));
 	}
 	current->in_queue = '0';

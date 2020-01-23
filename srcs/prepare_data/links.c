@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   links.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astanton <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:39:10 by astanton          #+#    #+#             */
-/*   Updated: 2019/10/25 13:39:12 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/23 09:53:05 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_lemin			add_links(t_strings *map, t_lemin lemin)
 		{
 			ft_free_lemin(lemin);
 			ft_free_strings(tmp);
-			write(2, "ERROR. Check links.\n", 21);
+			write(2, "ERROR. Check links.\n", 20);
 			exit(1);
 		}
 		map = map->next;

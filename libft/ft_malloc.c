@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astanton <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:54:28 by astanton          #+#    #+#             */
-/*   Updated: 2019/11/07 13:09:47 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/23 09:53:53 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_malloc(size_t size)
 
 	if (!(res = malloc(size)))
 	{
-		write(2, "Error. Memory is not allocated.\n", 33);
+		write(2, "Error. Memory is not allocated.\n", 32);
 		exit(2);
 	}
 	return (res);

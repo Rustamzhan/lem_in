@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_unused_links.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astanton <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 10:56:07 by astanton          #+#    #+#             */
-/*   Updated: 2019/11/01 10:56:10 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/23 10:04:01 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		clean_graph(t_lemin *lemin, t_strings *map)
 	{
 		ft_free_lemin(*lemin);
 		ft_free_strings(map);
-		write(2, "ERROR. Start and end are not connected.\n", 41);
+		write(2, "ERROR. Start and end are not connected.\n", 40);
 		exit(1);
 	}
 	lemin->start->end = '0';

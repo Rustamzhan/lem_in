@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astanton <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 13:41:24 by astanton          #+#    #+#             */
-/*   Updated: 2019/10/25 13:41:26 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/23 09:52:55 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_strings	*read_and_save_map(int fd)
 	check = get_next_line(fd, &line);
 	if (check < 1)
 	{
-		write(2, "ERROR. Wrong file_name or input data.\n", 39);
+		write(2, "ERROR. Wrong file_name or input data.\n", 38);
 		exit(1);
 	}
 	input = (t_strings *)ft_malloc(sizeof(t_strings));
@@ -73,7 +73,7 @@ t_strings			*map_save_and_check(int fd)
 	if (check_map(map))
 	{
 		ft_free_strings(map);
-		write(2, "ERROR. Invalid map format.\n", 28);
+		write(2, "ERROR. Invalid map format.\n", 27);
 		exit(1);
 	}
 	return (map);

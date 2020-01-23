@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astanton <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:11:55 by astanton          #+#    #+#             */
-/*   Updated: 2019/11/01 12:11:56 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/23 10:06:17 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	close_twice_used_edge(t_links *tmp, t_links *tmp2)
 {
 	if (tmp->direction == '0' && tmp2->direction == '0')
 	{
-		tmp->direction = '3';
-		tmp2->direction = '3';
+		tmp->direction = '1';
+		tmp2->direction = '1';
 	}
 }
 
